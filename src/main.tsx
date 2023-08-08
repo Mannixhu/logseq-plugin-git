@@ -178,14 +178,21 @@ if (isDevelopment) {
         }
       });
     }
-    const autoPushTimeout = Number(logseq.settings?.autoPushTimeout) || 0
-    if(autoPushTimeout > 0) {
-      const interval = autoPushTimeout * 60 * 1000
-      console.log('interval ms ', interval);
+    let intervalPushTimer
+    logseq.onSettingsChanged((nowSetting, oldSetting) => {
+      if(nowSetting.autoPushTimeout !== oldSetting.autoPushTimeout) {
+        startPushInterval()
+      }
+    })
+    const startPushInterval = (minute = Number(logseq.settings?.autoPushTimeout) || 0) => {
+      const interval = minute * 60 * 1000
+      if(intervalPushTimer) clearInterval(intervalPushTimer)
+      console.log('interval minute ', minute);
       setInterval(() => {
         operations.commitAndPush();
       }, interval)
     }
+    startPushInterval()
 
     logseq.App.registerCommandPalette(
       {
