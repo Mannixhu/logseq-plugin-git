@@ -64,7 +64,7 @@ if (isDevelopment) {
       }),
       commit: debounce(async function () {
         hidePopup();
-        commit(true, `[logseq-plugin-git:commit] ${new Date().toISOString()}`);
+        commit(true, `[commit] ${new Date().toLocaleString()}`);
       }),
       push: debounce(async function () {
         setPluginStyle(LOADING_STYLE);
@@ -81,7 +81,7 @@ if (isDevelopment) {
         if (changed) {
           const res = await commit(
               true,
-              `[logseq-plugin-git:commit] ${new Date().toISOString()}`
+              `[commit] ${new Date().toLocaleString()}`
           );
           if (res.exitCode === 0) await push(true);
         }
