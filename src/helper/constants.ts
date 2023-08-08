@@ -140,4 +140,11 @@ export const SETTINGS_SCHEMA: SettingSchemaDesc[] = [
     default: false,
     description: "Auto push when logseq hide",
   },
+  {
+    key: "autoPushTimeout",
+    title: "Auto Push timeout",
+    type: "number",
+    default: false,
+    description: "Auto push when reach time(minute)",
+  },
 ];

@@ -178,6 +178,14 @@ if (isDevelopment) {
         }
       });
     }
+    const autoPushTimeout = Number(logseq.settings?.autoPushTimeout) || 0
+    if(autoPushTimeout > 0) {
+      const interval = autoPushTimeout * 60 * 1000
+      console.log('interval ms ', interval);
+      setInterval(() => {
+        operations.commitAndPush();
+      }, interval)
+    }
 
     logseq.App.registerCommandPalette(
       {
